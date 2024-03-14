@@ -51,23 +51,16 @@ public:
 
 int main()
 {  
-    std::queue<int> raw1;
+    std::queue<int> raw;
     for (int i = 0; i <= 5; i++)
     {
-        raw1.push(i);
+        raw.push(i);
     }
 
-    threadSafeQ object1(raw1);
-    std::thread funtest1(&threadSafeQ::retrieveAndDelete, &object1);
+    threadSafeQ object(raw);
 
-    std::queue<int> raw2;
-    for (int i = 5; i <= 10; i++)
-    {
-        raw2.push(i);
-    }
-
-    threadSafeQ object2(raw2);
-    std::thread funtest2(&threadSafeQ::retrieveAndDelete, &object2);
+    std::thread funtest1(&threadSafeQ::retrieveAndDelete, &object);
+    std::thread funtest2(&threadSafeQ::retrieveAndDelete, &object);
 
     if (funtest1.joinable())
     {
@@ -79,8 +72,8 @@ int main()
         funtest2.join();
     }
 
-    object1.print();
-    object2.print();
+    object.print();
+    
 
     return 0;
 }   
