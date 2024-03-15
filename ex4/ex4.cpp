@@ -60,7 +60,7 @@ int main()
     threadSafeQ object(raw);
 
     std::thread funtest1(&threadSafeQ::retrieveAndDelete, &object);
-    std::thread funtest2(&threadSafeQ::retrieveAndDelete, &object);
+    std::thread funtest2(&threadSafeQ::push, &object, 6);
 
     if (funtest1.joinable())
     {
